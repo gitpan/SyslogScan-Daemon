@@ -14,7 +14,7 @@ require Exporter;
 our @ISA = qw(Daemon::Generic::Event);
 our @EXPORT = qw(newdaemon);
 
-our $VERSION = 0.3;
+our $VERSION = 0.41;
 
 our $sighup = 0;
 our $sigint = 0;
@@ -41,7 +41,7 @@ sub gd_preconfig
 	print "START  ssd preconfig\n" if $debug;
 
 	$self->{api} = new Plugins::API { autoregister => $self },
-		log_rolled	=> {},
+		log_rolled	=> { optional => 1 },
 		;
 
 	delete $self->{plugins};
@@ -203,6 +203,7 @@ sub set_api
 sub postconfig {}
 sub matched_line {}
 sub preconfig {}
+sub log_rolled {}
 
 sub get_logs
 {
